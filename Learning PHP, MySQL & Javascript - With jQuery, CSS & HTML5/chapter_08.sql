@@ -292,8 +292,16 @@ SELECT author, title FROM classics LIMIT 3, 1; -- 1 row(s) returned
 SELECT * FROM classics; 
 
 -- MATCH...AGAINST --
-/* Example 8- */
-/* Example 8- */
+/* Example 8-24. Using MATCH...AGAINST on FULLTEXT indexes */
+SELECT author, title FROM classics
+	WHERE MATCH(author, title) AGAINST('and'); -- 0 row(s) returned, since 'and' is a stopword
+SELECT author, title FROM classics
+	WHERE MATCH(author, title) AGAINST('curiosity shop'); -- 1 row(s) returned
+SELECT author, title FROM classics
+	WHERE MATCH(author, title) AGAINST('tom sawyer'); -- 1 row(s) returned
+    
+-- MATCH...AGAINST...in Boolean Mode --
+/* Example 8-25. Using MATCH...AGAINST...in Boolean Mode */
 /* Example 8- */
 /* Example 8- */
 /* Example 8- */
