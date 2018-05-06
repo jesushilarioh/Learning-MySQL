@@ -302,6 +302,73 @@ SELECT author, title FROM classics
     
 -- MATCH...AGAINST...in Boolean Mode --
 /* Example 8-25. Using MATCH...AGAINST...in Boolean Mode */
-/* Example 8- */
-/* Example 8- */
-/* Example 8- */
+SELECT author, title FROM classics
+	WHERE MATCH(author, title)
+	AGAINST('+charles -species' IN BOOLEAN MODE); -- 1 row(s) returned / exact words to be search for
+SELECT author, title FROM classics
+	WHERE MATCH(author, title)
+    AGAINST(' "origin of" ' IN BOOLEAN MODE); -- 1 row(s) returned / exact phrase
+
+-- UPDATE...SET --
+/* Example 8-26. Using UPDATE...SET */
+UPDATE classics SET author = 'Mark Twain (Samuel Langhorne Clemens)'
+	WHERE author = 'Mark Twain';
+UPDATE classics SET category = 'Classic Fiction'
+	WHERE category = 'Fiction';    
+/* Display all 'classics' table contents */
+SELECT * FROM classics; 
+
+ -- ORDER BY -- 
+/* Example 8-27a. Using ORDER BY */
+SELECT author, title FROM classics ORDER BY author;
+SELECT author, title FROM classics ORDER BY title DESC;
+/* Example 8-27b. */
+SELECT author, title, year FROM classics ORDER BY author, title, year DESC;
+/* Example 8-27c. */
+SELECT author, title, year FROM classics ORDER BY author ASC, year DESC;
+
+-- GROUP BY --
+/* Example */
+SELECT category, COUNT(author) AS '# of Authors' FROM classics GROUP BY category;
+
+
+/* (JOINING TABLES TOGETHER) */
+/* (JOINING TABLES TOGETHER) */
+/* (JOINING TABLES TOGETHER) */
+/* Example 8-29. Creating and pupulating the customers table. */
+CREATE TABLE customers (
+	name VARCHAR(128),
+    isbn VARCHAR(13),
+    PRIMARY KEY (isbn)) ENGINE MyISAM;
+/* Display tables in 'publications' database; */
+SHOW TABLES;
+/* Populate 'customers' table */
+INSERT INTO customers(name, isbn)
+	VALUES ('Joe Bloggs', '9780099533474');
+INSERT INTO customers (name, isbn)
+	VALUES ('Mary Smith', '9780582506206');
+INSERT INTO customers (name, isbn)
+	VALUES ('Jack Wilson', '9780517123201');
+/* A short cut to pupulating 'customers' table, as above.*/
+/* First Delete all data in 'customers' table */
+DELETE  FROM customers WHERE isbn > 0;
+/* Now pupulations shortcut here. */
+INSERT INTO customers(name, isbn) VALUES
+	('Joe Bloggs', '9780099533474'),
+    ('Mary Smith', '9780582506206'),
+    ('Jack Wilson', '9780517123201');
+/* Display contents in 'customers' table */
+SELECT * FROM customers;
+
+/* Example 8-29. Joining two tables into a single SELECT statment */
+SELECT name, author, title FROM customers, classics
+	WHERE customers.isbn = classics.isbn; -- 3 row(s) returned.
+    
+-- NATURAL JOIN --
+/* Example 8-29b. Use NATURAL JOIN to achieve the same results as above. Notice: shorter query. */
+SELECT name, author, title FROM customers NATURAL JOIN classics;
+
+-- JOIN...ON
+/* Example 8-29c.Use JOIN...ON to achieve same result as above, by specifying join column.  */
+SELECT name, author, title FROM customers
+	JOIN classics ON customers.isbn = classics.isbn;
