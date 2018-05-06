@@ -2,9 +2,6 @@
 
 /* MySQL Functions */
 
--- STRING FUNCTIONS --
--- STRING FUNCTIONS --
--- STRING FUNCTIONS --
 /* CONCAT(str1, str2, ...) */
 SELECT CONCAT('My', 'S', 'QL');
 

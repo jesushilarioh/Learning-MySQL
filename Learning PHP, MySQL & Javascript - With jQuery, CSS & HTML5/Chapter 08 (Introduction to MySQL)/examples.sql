@@ -14,7 +14,7 @@ CREATE TABLE classics (
     title VARCHAR(128),
     type VARCHAR(16),
     year CHAR(4)) ENGINE MyISAM;
-    
+
 /* Check if new table has been created */
 DESCRIBE classics;
 
@@ -29,7 +29,7 @@ CREATE TABLE classics (
     type VARCHAR(16),
     year CHAR(4),
     id INT UNSIGNED NOT NULL AUTO_INCREMENT KEY) ENGINE MyISAM;
-    
+
 /* Check if new table has been created */
 DESCRIBE classics;
 
@@ -52,19 +52,19 @@ INSERT INTO classics (author, title, type, year)
 	VALUES ('William Shakespeare', 'Romeo and Juliet', 'Play', '1594');
 
 /* Display 'classics' table contents */
-SELECT * FROM classics; 
+SELECT * FROM classics;
 
 
 /* Renaming'classics' table to 'pre1900' */
 ALTER TABLE classics RENAME pre1900;
 /* Display 'pre1900' table contents */
-SELECT * FROM pre1900; 
+SELECT * FROM pre1900;
 
 
 /* Renaming 'pre1900' table to 'classics' */
 ALTER TABLE pre1900 RENAME classics;
 /* Display 'classics' table contents */
-SELECT * FROM classics; 
+SELECT * FROM classics;
 
 
 /* Changing the data type of a column 'year' */
@@ -132,7 +132,7 @@ CREATE TABLE classics (
     INDEX (title(20)),
     INDEX (category(4)),
     INDEX (year)) ENGINE MyISAM;
-    
+
 /* Show changes in table columns */
 DESCRIBE classics;
 
@@ -149,7 +149,7 @@ INSERT INTO classics (author, title, category, year)
 	VALUES ('William Shakespeare', 'Romeo and Juliet', 'Play', '1594');
 
 /* Display 'classics' table contents */
-SELECT * FROM classics; 
+SELECT * FROM classics;
 
  /* Example 8-13. Populating 'isbn' column with data and adding a PRIMARY KEY */
 ALTER TABLE classics ADD isbn CHAR(13);
@@ -163,7 +163,7 @@ ALTER TABLE classics ADD PRIMARY KEY (isbn);
 /* Show changes in table columns */
 DESCRIBE classics;
 /* Display 'classics' table contents */
-SELECT * FROM classics; 
+SELECT * FROM classics;
 
 
 
@@ -199,7 +199,7 @@ INSERT INTO classics (author, title, category, year, isbn)
 	VALUES ('William Shakespeare', 'Romeo and Juliet', 'Play', '1594', '9780192814968');
 
 /* Display 'classics' table contents */
-SELECT * FROM classics; 
+SELECT * FROM classics;
 
 /* Example 8-14. Creating the table 'classics' with a primary key */
 DROP TABLE classics;
@@ -214,7 +214,7 @@ CREATE TABLE classics (
     INDEX (category(4)),
     INDEX (year),
     PRIMARY KEY (isbn)) ENGINE MyISAM;
-    
+
 /* Show  table columns */
 DESCRIBE classics;
 
@@ -229,9 +229,9 @@ INSERT INTO classics (author, title, category, year, isbn)
 	VALUES ('Charles Dickens', 'The Old Curiosity Shop', 'Fiction', '1841', '9780099533474');
 INSERT INTO classics (author, title, category, year, isbn)
 	VALUES ('William Shakespeare', 'Romeo and Juliet', 'Play', '1594', '9780192814968');
-    
+
 /* Display 'classics' table contents */
-SELECT * FROM classics; 
+SELECT * FROM classics;
 
 
 /* Example 8-15. Adding a FULLTEXT index to the table classics */
@@ -269,7 +269,7 @@ SELECT DISTINCT author FROM classics; -- 6 row(s) returned --
 /* Example 8-20. Removing the new entry */
 DELETE FROM classics WHERE title = 'Little Dorrit'; -- 2 row(s) affected --
 /* Display 'classics' table contents */
-SELECT * FROM classics; 
+SELECT * FROM classics;
 
 -- WHERE --
 /* Example 8- 21. Using the WHERE keyword */
@@ -289,7 +289,7 @@ SELECT author, title FROM classics LIMIT 1, 2; -- 2 row(s) returned
 SELECT author, title FROM classics LIMIT 3, 1; -- 1 row(s) returned
 
 /* Display all 'classics' table contents */
-SELECT * FROM classics; 
+SELECT * FROM classics;
 
 -- MATCH...AGAINST --
 /* Example 8-24. Using MATCH...AGAINST on FULLTEXT indexes */
@@ -299,7 +299,7 @@ SELECT author, title FROM classics
 	WHERE MATCH(author, title) AGAINST('curiosity shop'); -- 1 row(s) returned
 SELECT author, title FROM classics
 	WHERE MATCH(author, title) AGAINST('tom sawyer'); -- 1 row(s) returned
-    
+
 -- MATCH...AGAINST...in Boolean Mode --
 /* Example 8-25. Using MATCH...AGAINST...in Boolean Mode */
 SELECT author, title FROM classics
@@ -314,11 +314,11 @@ SELECT author, title FROM classics
 UPDATE classics SET author = 'Mark Twain (Samuel Langhorne Clemens)'
 	WHERE author = 'Mark Twain';
 UPDATE classics SET category = 'Classic Fiction'
-	WHERE category = 'Fiction';    
+	WHERE category = 'Fiction';
 /* Display all 'classics' table contents */
-SELECT * FROM classics; 
+SELECT * FROM classics;
 
- -- ORDER BY -- 
+ -- ORDER BY --
 /* Example 8-27a. Using ORDER BY */
 SELECT author, title FROM classics ORDER BY author;
 SELECT author, title FROM classics ORDER BY title DESC;
@@ -363,7 +363,7 @@ SELECT * FROM customers;
 /* Example 8-29. Joining two tables into a single SELECT statment */
 SELECT name, author, title FROM customers, classics
 	WHERE customers.isbn = classics.isbn; -- 3 row(s) returned.
-    
+
 -- NATURAL JOIN --
 /* Example 8-29b. Use NATURAL JOIN to achieve the same results as above. Notice: shorter query. */
 SELECT name, author, title FROM customers NATURAL JOIN classics; -- 3 row(s) returned.
@@ -372,7 +372,7 @@ SELECT name, author, title FROM customers NATURAL JOIN classics; -- 3 row(s) ret
 /* Example 8-29c.Use JOIN...ON to achieve same result as above, by specifying join column.  */
 SELECT name, author, title FROM customers
 	JOIN classics ON customers.isbn = classics.isbn; -- 3 row(s) returned.
-    
+
 -- Using AS --
 /* Example 8-29d. Create table name aliases for 'customers' and 'classics' */
 SELECT name, author, title FROM
@@ -394,45 +394,3 @@ SELECT author, title FROM classics WHERE
 	author LIKE "%Mark Twain%" OR author LIKE "%Samuel Langhorne Clemens%";
 SELECT author, title FROM CLASSICS WHERE
 	author LIKE "Charles%" AND author NOT LIKE "%Darwin";
-
-
-/* (QUESTIONS) */
-/* (QUESTIONS) */
-/* (QUESTIONS) */
-
--- 1. What is the purpose of the semicolon in MySQL queries?
--- Answer: A semicolon finalizes a MySQL query. It's used either to SEPARATE or 
--- 				 END COMMANDS.
-
--- 2. Which command would you use to view the available databases or tables?
--- Answer: I would us the SHOW command to view available database of tables.
--- Ex. #a. databases. 
-SHOW DATABASES;
--- Ex. #b. tables. 
-SHOW TABLES;
-
--- 3. How would you create a new MySQL user on the local host called 'newuser' with a 
--- 		password of 'newpass' and with access to everything in the database 'newdatabase'?
-/* #a. Create user */
-CREATE USER 'newuser'@'localhost' IDENTIFIED BY 'newpass';
-/* #b. Grant user privileges */
-GRANT ALL PRIVILEGES ON newdatabase.* TO 'newuser'@'localhost';
-
--- 4. How can you view the structures of a table
--- Answer: You can view the structures of a table by using the DISCRIBE  command.
--- Ex. #a.
-DESCRIBE user_table;
-
--- 5. What is the purpose of a MySQL index?
--- Answer: The purpose of the index is to conduct lightning-fast search queries.
-
--- 6. What benefit does a FULLTEXT index provide?
--- Answer: The FULLTEXT index provide for searches that only search for important words 
---  			 and not 'stop words.' Such as, 'the', 'and', and 'is'.
--- 				 The FULLTEXT index allows super-fast searches of entire columns of text.
--- 				 FULLTEXT stores every word (not including 'stopwords') in every data string in a 
--- 				 special index that you can search using "natural language," in a similar manner to 
--- 				 using a search engine. 
-
--- 7. What is a 'stopword'?
--- Answer: 
