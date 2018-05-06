@@ -366,9 +366,73 @@ SELECT name, author, title FROM customers, classics
     
 -- NATURAL JOIN --
 /* Example 8-29b. Use NATURAL JOIN to achieve the same results as above. Notice: shorter query. */
-SELECT name, author, title FROM customers NATURAL JOIN classics;
+SELECT name, author, title FROM customers NATURAL JOIN classics; -- 3 row(s) returned.
 
 -- JOIN...ON
 /* Example 8-29c.Use JOIN...ON to achieve same result as above, by specifying join column.  */
 SELECT name, author, title FROM customers
-	JOIN classics ON customers.isbn = classics.isbn;
+	JOIN classics ON customers.isbn = classics.isbn; -- 3 row(s) returned.
+    
+-- Using AS --
+/* Example 8-29d. Create table name aliases for 'customers' and 'classics' */
+SELECT name, author, title FROM
+	customers AS cust, classics AS class WHERE cust.isbn = class.isbn; -- 3 row(s) returned.
+/* Above query can also be written as so (Note: sorter query) */
+SELECT name, author, title FROM customers cu
+	JOIN classics cl ON cu.isbn = cl.isbn; -- 3 row(s) returned.
+
+
+
+/* (USING LOGICAL OPERATORS) */
+/* (USING LOGICAL OPERATORS) */
+/* (USING LOGICAL OPERATORS) */
+
+/* Example 8-30. Using logical operators */
+SELECT author, title FROM classics WHERE
+	author LIKE "Charles%" AND author LIKE "%Darwin"; -- 1 row(s) returned.
+SELECT author, title FROM classics WHERE
+	author LIKE "%Mark Twain%" OR author LIKE "%Samuel Langhorne Clemens%";
+SELECT author, title FROM CLASSICS WHERE
+	author LIKE "Charles%" AND author NOT LIKE "%Darwin";
+
+
+/* (QUESTIONS) */
+/* (QUESTIONS) */
+/* (QUESTIONS) */
+
+-- 1. What is the purpose of the semicolon in MySQL queries?
+-- Answer: A semicolon finalizes a MySQL query. It's used either to SEPARATE or 
+-- 				 END COMMANDS.
+
+-- 2. Which command would you use to view the available databases or tables?
+-- Answer: I would us the SHOW command to view available database of tables.
+-- Ex. #a. databases. 
+SHOW DATABASES;
+-- Ex. #b. tables. 
+SHOW TABLES;
+
+-- 3. How would you create a new MySQL user on the local host called 'newuser' with a 
+-- 		password of 'newpass' and with access to everything in the database 'newdatabase'?
+/* #a. Create user */
+CREATE USER 'newuser'@'localhost' IDENTIFIED BY 'newpass';
+/* #b. Grant user privileges */
+GRANT ALL PRIVILEGES ON newdatabase.* TO 'newuser'@'localhost';
+
+-- 4. How can you view the structures of a table
+-- Answer: You can view the structures of a table by using the DISCRIBE  command.
+-- Ex. #a.
+DESCRIBE user_table;
+
+-- 5. What is the purpose of a MySQL index?
+-- Answer: The purpose of the index is to conduct lightning-fast search queries.
+
+-- 6. What benefit does a FULLTEXT index provide?
+-- Answer: The FULLTEXT index provide for searches that only search for important words 
+--  			 and not 'stop words.' Such as, 'the', 'and', and 'is'.
+-- 				 The FULLTEXT index allows super-fast searches of entire columns of text.
+-- 				 FULLTEXT stores every word (not including 'stopwords') in every data string in a 
+-- 				 special index that you can search using "natural language," in a similar manner to 
+-- 				 using a search engine. 
+
+-- 7. What is a 'stopword'?
+-- Answer: 
